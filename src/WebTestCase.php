@@ -38,7 +38,7 @@ abstract class WebTestCase extends BaseWebTestCase
             /** @var KernelInterface $kernel */
             $kernel = $this->getContainer()->get('kernel');
         } else {
-            $kernel = self::bootKernel();
+            $kernel = self::bootKernel(['environment' => $this->environment]);
         }
 
         $application = new Application($kernel);
