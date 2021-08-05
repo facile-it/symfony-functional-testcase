@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Array \\(array\\<Symfony\\\\Component\\\\DependencyInjection\\\\ContainerInterface\\>\\) does not accept object\\|null\\.$#"
-			count: 1
-			path: src/WebTestCase.php
-
-		-
 			message: "#^Parameter \\#1 \\$callable of static method Doctrine\\\\Common\\\\Annotations\\\\AnnotationRegistry\\:\\:registerLoader\\(\\) expects callable\\(\\)\\: mixed, array\\(mixed, 'loadClass'\\) given\\.$#"
 			count: 1
 			path: tests/App/bootstrap.php
