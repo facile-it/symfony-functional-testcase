@@ -34,16 +34,11 @@ abstract class WebTestCase extends BaseWebTestCase
      */
     protected function prepareCommandTester(string $name, bool $reuseKernel = false): CommandTester
     {
-        if (! $reuseKernel) {
-            if (null !== static::$kernel) {
-                static::$kernel->shutdown();
-            }
-
-            $kernel = static::$kernel = static::createKernel(['environment' => $this->environment]);
-            $kernel->boot();
-        } else {
+        if ($reuseKernel) {
             /** @var KernelInterface $kernel */
             $kernel = $this->getContainer()->get('kernel');
+        } else {
+            $kernel = self::bootKernel(['environment' => $this->environment]);
         }
 
         $application = new Application($kernel);
@@ -105,11 +100,13 @@ abstract class WebTestCase extends BaseWebTestCase
             $kernel->boot();
 
             $container = $kernel->getContainer();
+
             if ($container->has('test.service_container')) {
-                $this->containers[$cacheKey] = $container->get('test.service_container');
-            } else {
-                $this->containers[$cacheKey] = $container;
+                $container = $container->get('test.service_container');
+                $this->assertInstanceOf(ContainerInterface::class, $container);
             }
+
+            $this->containers[$cacheKey] = $container;
         }
 
         return $this->containers[$cacheKey];
