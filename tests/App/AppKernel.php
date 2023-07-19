@@ -30,11 +30,17 @@ class AppKernel extends Kernel
         $loader->load(__DIR__ . '/config.yml');
 
         if (Kernel::VERSION_ID >= 50000) {
+            if (Kernel::VERSION_ID >= 60300) {
+                $loader->load(__DIR__ . '/config_6_3.yml');
+            }
+
             $loader->load(__DIR__ . '/config_5.yml');
         }
 
-        if (Kernel::VERSION_ID >= 50300) {
+        if (Kernel::VERSION_ID >= 60200) {
             $loader->load(__DIR__ . '/security.yml');
+        } elseif (Kernel::VERSION_ID >= 50300) {
+            $loader->load(__DIR__ . '/security_pre_6.2.yml');
         } else {
             $loader->load(__DIR__ . '/security_pre_5.3.yml');
         }
