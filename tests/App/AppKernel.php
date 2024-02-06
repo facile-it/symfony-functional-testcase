@@ -15,33 +15,31 @@ class AppKernel extends Kernel
      */
     public function registerBundles(): array
     {
-        $bundles = [
+        return [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new AcmeBundle(),
         ];
-
-        return $bundles;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/config.yml');
 
-        if (Kernel::VERSION_ID >= 50000) {
-            if (Kernel::VERSION_ID >= 60400) {
+        if (Kernel::VERSION_ID >= 5_00_00) {
+            if (Kernel::VERSION_ID >= 6_04_00) {
                 $loader->load(__DIR__ . '/config_6_4.yml');
-            } elseif (Kernel::VERSION_ID >= 60300) {
+            } elseif (Kernel::VERSION_ID >= 6_03_00) {
                 $loader->load(__DIR__ . '/config_6_3.yml');
             }
 
             $loader->load(__DIR__ . '/config_5.yml');
         }
 
-        if (Kernel::VERSION_ID >= 60200) {
+        if (Kernel::VERSION_ID >= 6_02_00) {
             $loader->load(__DIR__ . '/security.yml');
-        } elseif (Kernel::VERSION_ID >= 50300) {
+        } elseif (Kernel::VERSION_ID >= 5_03_00) {
             $loader->load(__DIR__ . '/security_pre_6.2.yml');
         } else {
             $loader->load(__DIR__ . '/security_pre_5.3.yml');

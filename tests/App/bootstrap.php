@@ -6,6 +6,8 @@ use Doctrine\Common\Annotations\AnnotationRegistry;
 
 $loader = require __DIR__ . '/../../vendor/autoload.php';
 
-AnnotationRegistry::registerLoader([$loader, 'loadClass']);
+if (class_exists(AnnotationRegistry::class)) {
+    AnnotationRegistry::registerLoader([$loader, 'loadClass']);
+}
 
 return $loader;

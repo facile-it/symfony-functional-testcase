@@ -1,6 +1,2 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Parameter \\#1 \\$callable of static method Doctrine\\\\Common\\\\Annotations\\\\AnnotationRegistry\\:\\:registerLoader\\(\\) expects callable\\(\\)\\: mixed, array\\{mixed, 'loadClass'\\} given\\.$#"
-			count: 1
-			path: tests/App/bootstrap.php
