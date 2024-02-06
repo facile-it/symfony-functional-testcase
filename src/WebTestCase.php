@@ -12,10 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
 
-if (! class_exists(KernelBrowser::class)) {
-    \class_alias(\Symfony\Bundle\FrameworkBundle\Client::class, KernelBrowser::class);
-}
-
 /**
  * @method ContainerInterface getContainer()
  */
