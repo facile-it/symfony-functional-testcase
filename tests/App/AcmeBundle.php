@@ -9,7 +9,5 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class AcmeBundle extends Bundle
 {
-    public function build(ContainerBuilder $container): void
-    {
-    }
+    public function build(ContainerBuilder $container): void {}
 }
