@@ -9,8 +9,3 @@ parameters:
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
-    ignoreErrors:
-        -
-            message: "#^Class Symfony\\\\Bundle\\\\FrameworkBundle\\\\Client not found\\.$#"
-            count: 1
-            path: src/WebTestCase.php
