@@ -34,7 +34,7 @@
         "symfony/console": "^4.4|^5.0|^6.0|^7.0",
         "symfony/monolog-bridge": ">=3",
         "symfony/monolog-bundle": "^3.1.2",
-        "symfony/phpunit-bridge": "^5.1.8",
+        "symfony/phpunit-bridge": "^5.1.8 || ^7.0.0",
         "symfony/security-bundle": "^4.4|^5.0|^6.0|^7.0",
         "symfony/security-core": "^4.4|^5.0|^6.0|^7.0",
         "symfony/yaml": "^4.4|^5.0|^6.0|^7.0"
