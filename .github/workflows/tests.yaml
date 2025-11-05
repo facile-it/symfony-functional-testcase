@@ -22,15 +22,19 @@ jobs:
           - '7.4'
         dependencies: ['highest']
         include:
+          - description: 'Symfony 8'
+            php: '8.4'
+            symfony_require: '^8.0.0-BETA-1'
           - description: 'Symfony 6.4'
             php: '8.2'
-            symfony_require: '^5.4'
+            symfony_require: '^6.4'
           - description: 'Symfony 5.4'
             php: '8.1'
             symfony_require: '^5.4'
           - description: 'Symfony 4.4'
             php: '7.4'
             symfony_require: '^4.4'
+            composer-minimum-stability: 'beta'
           - description: '(prefer lowest)'
             php: '7.4'
             symfony_require: '^4.4'
@@ -46,13 +50,18 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: xdebug
-      - name: Restrict Symfony version
-        run: composer require "symfony/symfony:${{ matrix.symfony_require }}" --no-update
-        if: matrix.symfony_require
+          tools: flex
+      - name: Configure Composer minimum-stability
+        if: matrix.composer-minimum-stability
+        run: composer config minimum-stability ${{ matrix.composer-minimum-stability }}
+      - name: Remove unneeded deps during tests
+        run: composer remove --dev --no-update facile-it/facile-coding-standard
       - name: Install dependencies
         uses: "ramsey/composer-install@v3"
         with:
           dependency-versions: ${{ matrix.dependencies }}
+        env:
+          SYMFONY_REQUIRE: ${{ matrix.symfony_require }}
       - name: Run tests
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
         env:
