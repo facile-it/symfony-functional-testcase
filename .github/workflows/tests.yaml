@@ -23,6 +23,7 @@ jobs:
         dependencies: ['highest']
         include:
           - description: 'Symfony 8'
+            composer-minimum-stability: 'beta'
             php: '8.4'
             symfony_require: '^8.0.0-BETA-1'
           - description: 'Symfony 6.4'
@@ -34,7 +35,6 @@ jobs:
           - description: 'Symfony 4.4'
             php: '7.4'
             symfony_require: '^4.4'
-            composer-minimum-stability: 'beta'
           - description: '(prefer lowest)'
             php: '7.4'
             symfony_require: '^4.4'
