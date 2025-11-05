@@ -27,6 +27,14 @@ class WebTestCaseTest extends WebTestCase
         $this->assertInstanceOf(ContainerInterface::class, $this->getContainer());
     }
 
+    public function testCallNotGettingMoreCalls(): void
+    {
+        $this->expectExceptionMessage('Method fakeMethod is not supported');
+
+        /** @phpstan-ignore-next-line */
+        $this->fakeMethod();
+    }
+
     /**
      * Call methods from Symfony to ensure the Controller works.
      */

@@ -71,10 +71,6 @@ abstract class WebTestCase extends BaseWebTestCase
     public function __call(string $name, $arguments): ContainerInterface
     {
         if ('getContainer' === $name) {
-            if (method_exists(parent::class, $name)) {
-                return parent::getContainer();
-            }
-
             return $this->getDependencyInjectionContainer();
         }
 
