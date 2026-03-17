@@ -57,7 +57,7 @@ jobs:
       - name: Remove unneeded deps during tests
         run: composer remove --dev --no-update facile-it/facile-coding-standard
       - name: Install dependencies
-        uses: "ramsey/composer-install@v3"
+        uses: "ramsey/composer-install@v4"
         with:
           dependency-versions: ${{ matrix.dependencies }}
         env:
@@ -93,5 +93,5 @@ jobs:
         with:
           php-version: 7.4
       - name: Install dependencies
-        uses: "ramsey/composer-install@v3"
+        uses: "ramsey/composer-install@v4"
       - run: ${{ matrix.script }}
