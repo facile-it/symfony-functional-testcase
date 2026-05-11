@@ -14,6 +14,7 @@ jobs:
     strategy:
       matrix:
         php:
+          - '8.5'
           - '8.4'
           - '8.3'
           - '8.2'
@@ -22,10 +23,9 @@ jobs:
           - '7.4'
         dependencies: ['highest']
         include:
-          - description: 'Symfony 8'
-            composer-minimum-stability: 'beta'
-            php: '8.4'
-            symfony_require: '^8.0.0-BETA-1'
+          - description: 'Symfony 7.4'
+            php: '8.3'
+            symfony_require: '^7.4'
           - description: 'Symfony 6.4'
             php: '8.2'
             symfony_require: '^6.4'
