@@ -55,7 +55,7 @@ abstract class WebTestCase extends BaseWebTestCase
             $params,
             [
                 'interactive' => false,
-            ]
+            ],
         );
 
         return $commandTester;
