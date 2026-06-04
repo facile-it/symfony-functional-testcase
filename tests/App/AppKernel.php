@@ -27,26 +27,20 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__ . '/config.yml');
 
-        if (Kernel::VERSION_ID >= 5_00_00) {
-            if (Kernel::VERSION_ID >= 7_03_00) {
-                $loader->load(__DIR__ . '/config_7_3.yml');
-            }
+        if (Kernel::VERSION_ID >= 7_03_00) {
+            $loader->load(__DIR__ . '/config_7_3.yml');
+        }
 
-            if (Kernel::VERSION_ID >= 6_04_00) {
-                $loader->load(__DIR__ . '/config_6_4.yml');
-            } elseif (Kernel::VERSION_ID >= 6_03_00) {
-                $loader->load(__DIR__ . '/config_6_3.yml');
-            }
-
-            $loader->load(__DIR__ . '/config_5.yml');
+        if (Kernel::VERSION_ID >= 6_04_00) {
+            $loader->load(__DIR__ . '/config_6_4.yml');
+        } elseif (Kernel::VERSION_ID >= 6_03_00) {
+            $loader->load(__DIR__ . '/config_6_3.yml');
         }
 
         if (Kernel::VERSION_ID >= 6_02_00) {
             $loader->load(__DIR__ . '/security.yml');
-        } elseif (Kernel::VERSION_ID >= 5_03_00) {
-            $loader->load(__DIR__ . '/security_pre_6.2.yml');
         } else {
-            $loader->load(__DIR__ . '/security_pre_5.3.yml');
+            $loader->load(__DIR__ . '/security_pre_6.2.yml');
         }
     }
 

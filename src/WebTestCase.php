@@ -62,22 +62,6 @@ abstract class WebTestCase extends BaseWebTestCase
     }
 
     /**
-     * Keep support of Symfony < 5.3.
-     *
-     * @see https://github.com/liip/LiipFunctionalTestBundle/pull/584
-     *
-     * @param mixed|null $arguments
-     */
-    public function __call(string $name, $arguments): ContainerInterface
-    {
-        if ('getContainer' === $name) {
-            return $this->getDependencyInjectionContainer();
-        }
-
-        throw new \Exception("Method {$name} is not supported.");
-    }
-
-    /**
      * Get an instance of the dependency injection container.
      * (this creates a kernel *without* parameters).
      */
