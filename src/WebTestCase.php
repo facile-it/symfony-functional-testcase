@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Console\Tester\ExecutionResult;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -48,7 +49,7 @@ abstract class WebTestCase extends BaseWebTestCase
      *
      * @param array<string, mixed> $params
      */
-    protected function runCommand(string $name, array $params = [], bool $reuseKernel = false): CommandTester
+    protected function runCommandTester(string $name, array $params = [], bool $reuseKernel = false): CommandTester
     {
         $commandTester = $this->prepareCommandTester($name, $reuseKernel);
         $commandTester->execute(
@@ -59,6 +60,18 @@ abstract class WebTestCase extends BaseWebTestCase
         );
 
         return $commandTester;
+    }
+
+    /**
+     * @param mixed|null $arguments
+     */
+    public function __call(string $name, $arguments): object
+    {
+        if ('runCommand' === $name) {
+            return $this->runCommandTester(...$arguments);
+        }
+
+        throw new \Exception("Method {$name} is not supported.");
     }
 
     /**

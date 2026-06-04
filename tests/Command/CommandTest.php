@@ -9,7 +9,7 @@ use Facile\SymfonyFunctionalTestCase\WebTestCase;
 class CommandTest extends WebTestCase
 {
     /**
-     * This method tests both the default setting of `runCommand()` and the kernel reusing, as, to reuse kernel,
+     * This method tests both the default setting of `runCommandTester()` and the kernel reusing, as, to reuse kernel,
      * it is needed a kernel is yet instantiated. So we test these two conditions here, to not repeat the code.
      */
     public function testRunCommandWithoutOptionsAndReuseKernel(): void
@@ -19,6 +19,31 @@ class CommandTest extends WebTestCase
         $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
 
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test', [], true);
+
+        $this->assertSame(0, $commandTester->getStatusCode());
+        $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
+    }
+
+    public function testRunCommandTesterSpecificMethod(): void
+    {
+        // Run command without options
+        $commandTester = $this->runCommandTester('facileitsymfonyfunctionaltestcase:test');
+
+        // Test default values
+        $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
+
+        // Run command and reuse kernel
+        $commandTester = $this->runCommandTester('facileitsymfonyfunctionaltestcase:test', [], true);
+
+        $this->assertInstanceOf(CommandTester::class, $commandTester);
+        $this->assertSame(0, $commandTester->getStatusCode());
+
+        $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
+    }
+
+    public function testRunCommandParentStaticMethod(): void
+    {
+        $commandTester = self::runCommand('facileitsymfonyfunctionaltestcase:test');
 
         $this->assertSame(0, $commandTester->getStatusCode());
         $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
