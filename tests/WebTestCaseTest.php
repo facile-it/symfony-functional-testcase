@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Facile\SymfonyFunctionalTestCase\Tests;
 
+use PHPUnit\Framework\Attributes\Depends;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Facile\SymfonyFunctionalTestCase\Tests\App\AppKernel;
 use Facile\SymfonyFunctionalTestCase\WebTestCase;
@@ -56,9 +57,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStringContainsString('Hello world', $content);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testIndexAssertStatusCode(): void
     {
         $path = '/';
@@ -69,9 +68,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStatusCode(200, $client);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testIndexAssertIsSuccessful(): void
     {
         $path = '/';
@@ -82,9 +79,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStatusCodeIsSuccessful($client);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testIndexAssertIsRedirect(): void
     {
         $path = '/redirect';
@@ -95,9 +90,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStatusCodeIsRedirect($client);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testAssertStatusCodeFail(): void
     {
         $path = '/';
@@ -111,9 +104,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStatusCode(-1, $client);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testAssertStatusCodeFailWithMessage(): void
     {
         $path = '/';

@@ -9,8 +9,17 @@ return RectorConfig::configure()
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
+    ->withPHPStanConfigs([
+        __DIR__ . '/phpstan.neon',
+    ])
     ->withPhpSets()
     ->withImportNames(importShortClasses: false)
-    ->withTypeCoverageLevel(0)
-    ->withDeadCodeLevel(0)
-    ->withCodeQualityLevel(0);
+    ->withComposerBased(
+        phpunit: true,
+    )
+    ->withPreparedSets(
+        deadCode: true,
+        codeQuality: true,
+        typeDeclarations: true,
+    )
+;
