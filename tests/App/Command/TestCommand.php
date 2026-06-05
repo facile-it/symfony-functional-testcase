@@ -12,13 +12,10 @@ use Symfony\Component\HttpKernel\KernelInterface;
 
 class TestCommand extends Command
 {
-    /** @var KernelInterface */
-    private $kernel;
-
-    public function __construct(KernelInterface $kernel)
-    {
+    public function __construct(
+        private readonly KernelInterface $kernel,
+    ) {
         parent::__construct('facileitsymfonyfunctionaltestcase:test');
-        $this->kernel = $kernel;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

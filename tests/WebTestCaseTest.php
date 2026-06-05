@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Facile\SymfonyFunctionalTestCase\Tests;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Facile\SymfonyFunctionalTestCase\Tests\App\AppKernel;
 use Facile\SymfonyFunctionalTestCase\WebTestCase;
 use PHPUnit\Framework\ExpectationFailedException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class WebTestCaseTest extends WebTestCase
 {
@@ -134,7 +134,7 @@ class WebTestCaseTest extends WebTestCase
 
         try {
             $client->request('GET', $path);
-        } catch (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $exception) {
+        } catch (NotFoundHttpException) {
             $this->markTestSkipped('Ignore this due to --prefer-lowest CI build, see https://travis-ci.org/facile-it/symfony-functional-testcase/jobs/633306679');
         }
 

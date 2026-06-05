@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Facile\SymfonyFunctionalTestCase\Tests\App;
 
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\MonologBundle\MonologBundle;
+use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Kernel;
@@ -16,9 +19,9 @@ class AppKernel extends Kernel
     public function registerBundles(): array
     {
         return [
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Symfony\Bundle\MonologBundle\MonologBundle(),
-            new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new FrameworkBundle(),
+            new MonologBundle(),
+            new SecurityBundle(),
             new AcmeBundle(),
         ];
     }

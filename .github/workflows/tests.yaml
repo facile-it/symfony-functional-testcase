@@ -80,6 +80,8 @@ jobs:
             script: composer cs-check
           - description: PHPStan
             script: vendor/bin/phpstan analyze
+          - description: Rector
+            script: vendor/bin/rector process --dry-run
     steps:
       - name: Checkout
         uses: actions/checkout@v6
