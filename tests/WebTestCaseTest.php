@@ -30,10 +30,6 @@ class WebTestCaseTest extends WebTestCase
 
     public function testCallNotGettingMoreCalls(): void
     {
-        if (! method_exists(WebTestCase::class, '__call')) {
-            $this->markTestSkipped('Magic method __call is temporarely removed for PR #30');
-        }
-
         $this->expectExceptionMessage('Method fakeMethod is not supported');
 
         /** @phpstan-ignore-next-line */

@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase as BaseWebTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Component\Console\Tester\ExecutionResult;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -63,9 +62,9 @@ abstract class WebTestCase extends BaseWebTestCase
     }
 
     /**
-     * @param mixed|null $arguments
+     * @param mixed[] $arguments
      */
-    public function __call(string $name, $arguments): object
+    public function __call(string $name, array $arguments): object
     {
         if ('runCommand' === $name) {
             return $this->runCommandTester(...$arguments);
