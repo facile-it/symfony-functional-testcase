@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Facile\SymfonyFunctionalTestCase\Tests\Command;
 
 use Facile\SymfonyFunctionalTestCase\WebTestCase;
-use Symfony\Component\Console\Tester\CommandTester;
 
 class CommandTest extends WebTestCase
 {
@@ -15,37 +14,26 @@ class CommandTest extends WebTestCase
      */
     public function testRunCommandWithoutOptionsAndReuseKernel(): void
     {
-        // Run command without options
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test');
 
-        // Test default values
         $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
 
-        // Run command and reuse kernel
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test', [], true);
 
-        $this->assertInstanceOf(CommandTester::class, $commandTester);
         $this->assertSame(0, $commandTester->getStatusCode());
-
         $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
     }
 
     public function testRunCommandWithoutOptionsAndNotReuseKernel(): void
     {
-        // Run command without options
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test');
 
-        $this->assertInstanceOf(CommandTester::class, $commandTester);
         $this->assertSame(0, $commandTester->getStatusCode());
 
-        // Test default values
         $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
 
-        // Run command and not reuse kernel
         $this->environment = 'prod';
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test', [], false);
-
-        $this->assertInstanceOf(CommandTester::class, $commandTester);
 
         $this->assertStringContainsString('Environment: prod', $commandTester->getDisplay());
     }
@@ -54,8 +42,6 @@ class CommandTest extends WebTestCase
     {
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test-status-code');
 
-        $this->assertInstanceOf(CommandTester::class, $commandTester);
-
         $this->assertSame(10, $commandTester->getStatusCode());
     }
 
@@ -63,6 +49,8 @@ class CommandTest extends WebTestCase
     {
         $commandTester = $this->prepareCommandTester('facileitsymfonyfunctionaltestcase:test-status-code');
 
-        $this->assertInstanceOf(CommandTester::class, $commandTester);
+        $commandTester->execute([]);
+
+        $this->assertSame(10, $commandTester->getStatusCode());
     }
 }

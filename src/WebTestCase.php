@@ -97,7 +97,6 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         $response = $client->getResponse();
 
-        $this->assertInstanceOf(Response::class, $response, 'Response missing from client');
         $this->assertSame($expectedStatusCode, $response->getStatusCode(), $message);
     }
 
@@ -105,7 +104,6 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         $response = $client->getResponse();
 
-        $this->assertInstanceOf(Response::class, $response, 'Response missing from client');
         $this->assertTrue($response->isSuccessful(), 'HTTP status code not successful: ' . $response->getStatusCode());
     }
 
@@ -113,7 +111,6 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         $response = $client->getResponse();
 
-        $this->assertInstanceOf(Response::class, $response, 'Response missing from client');
         $this->assertTrue($response->isRedirect(), 'HTTP status code not a redirect: ' . $response->getStatusCode());
     }
 

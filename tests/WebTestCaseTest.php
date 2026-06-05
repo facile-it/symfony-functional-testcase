@@ -8,7 +8,6 @@ use Facile\SymfonyFunctionalTestCase\Tests\App\AppKernel;
 use Facile\SymfonyFunctionalTestCase\WebTestCase;
 use PHPUnit\Framework\ExpectationFailedException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class WebTestCaseTest extends WebTestCase
 {
@@ -24,7 +23,8 @@ class WebTestCaseTest extends WebTestCase
 
     public function testGetContainer(): void
     {
-        $this->assertInstanceOf(ContainerInterface::class, $this->getContainer());
+        $container = $this->getContainer();
+        $this->assertTrue($container->hasParameter('kernel.environment'));
     }
 
     public function testCallNotGettingMoreCalls(): void
@@ -51,7 +51,6 @@ class WebTestCaseTest extends WebTestCase
 
         $this->assertStatusCodeIsSuccessful($client);
         $response = $client->getResponse();
-        $this->assertInstanceOf(Response::class, $response);
         $content = $response->getContent();
         $this->assertIsString($content);
         $this->assertStringContainsString('Hello world', $content);
