@@ -55,26 +55,10 @@ abstract class WebTestCase extends BaseWebTestCase
             $params,
             [
                 'interactive' => false,
-            ]
+            ],
         );
 
         return $commandTester;
-    }
-
-    /**
-     * Keep support of Symfony < 5.3.
-     *
-     * @see https://github.com/liip/LiipFunctionalTestBundle/pull/584
-     *
-     * @param mixed|null $arguments
-     */
-    public function __call(string $name, $arguments): ContainerInterface
-    {
-        if ('getContainer' === $name) {
-            return $this->getDependencyInjectionContainer();
-        }
-
-        throw new \Exception("Method {$name} is not supported.");
     }
 
     /**
@@ -113,7 +97,6 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         $response = $client->getResponse();
 
-        $this->assertInstanceOf(Response::class, $response, 'Response missing from client');
         $this->assertSame($expectedStatusCode, $response->getStatusCode(), $message);
     }
 
@@ -121,7 +104,6 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         $response = $client->getResponse();
 
-        $this->assertInstanceOf(Response::class, $response, 'Response missing from client');
         $this->assertTrue($response->isSuccessful(), 'HTTP status code not successful: ' . $response->getStatusCode());
     }
 
@@ -129,7 +111,6 @@ abstract class WebTestCase extends BaseWebTestCase
     {
         $response = $client->getResponse();
 
-        $this->assertInstanceOf(Response::class, $response, 'Response missing from client');
         $this->assertTrue($response->isRedirect(), 'HTTP status code not a redirect: ' . $response->getStatusCode());
     }
 

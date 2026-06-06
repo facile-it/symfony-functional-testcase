@@ -1,4 +1,7 @@
-pre-commit-check: code-style-fix phpstan test
+pre-commit-check: rector code-style-fix phpstan test
+
+rector:
+	@vendor/bin/rector
 
 phpstan:
 	@vendor/bin/phpstan analyse

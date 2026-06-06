@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<phpunit
+<phpunit 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/7.5/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
     bootstrap="tests/App/bootstrap.php"
+    cacheDirectory=".phpunit.cache"
     colors="true"
     beStrictAboutOutputDuringTests="true"
 >
-
-    <php>
-        <server name="KERNEL_CLASS" value="Facile\SymfonyFunctionalTestCase\Tests\App\AppKernel" />
-    </php>
-
-    <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory>src</directory>
-        </whitelist>
-    </filter>
+  <php>
+    <server name="KERNEL_CLASS" value="Facile\SymfonyFunctionalTestCase\Tests\App\AppKernel"/>
+  </php>
+  <testsuites>
+    <testsuite name="Project Test Suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
 </phpunit>

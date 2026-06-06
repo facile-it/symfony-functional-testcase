@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Facile\SymfonyFunctionalTestCase\Tests;
 
+use PHPUnit\Framework\Attributes\Depends;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Facile\SymfonyFunctionalTestCase\Tests\App\AppKernel;
 use Facile\SymfonyFunctionalTestCase\WebTestCase;
 use PHPUnit\Framework\ExpectationFailedException;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Response;
 
 class WebTestCaseTest extends WebTestCase
 {
@@ -24,11 +24,16 @@ class WebTestCaseTest extends WebTestCase
 
     public function testGetContainer(): void
     {
-        $this->assertInstanceOf(ContainerInterface::class, $this->getContainer());
+        $container = $this->getContainer();
+        $this->assertTrue($container->hasParameter('kernel.environment'));
     }
 
     public function testCallNotGettingMoreCalls(): void
     {
+        if (! method_exists(WebTestCase::class, '__call')) {
+            $this->markTestSkipped('Magic method __call is temporarely removed for PR #30');
+        }
+
         $this->expectExceptionMessage('Method fakeMethod is not supported');
 
         /** @phpstan-ignore-next-line */
@@ -47,15 +52,12 @@ class WebTestCaseTest extends WebTestCase
 
         $this->assertStatusCodeIsSuccessful($client);
         $response = $client->getResponse();
-        $this->assertInstanceOf(Response::class, $response);
         $content = $response->getContent();
         $this->assertIsString($content);
         $this->assertStringContainsString('Hello world', $content);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testIndexAssertStatusCode(): void
     {
         $path = '/';
@@ -66,9 +68,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStatusCode(200, $client);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testIndexAssertIsSuccessful(): void
     {
         $path = '/';
@@ -79,9 +79,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStatusCodeIsSuccessful($client);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testIndexAssertIsRedirect(): void
     {
         $path = '/redirect';
@@ -92,9 +90,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStatusCodeIsRedirect($client);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testAssertStatusCodeFail(): void
     {
         $path = '/';
@@ -108,9 +104,7 @@ class WebTestCaseTest extends WebTestCase
         $this->assertStatusCode(-1, $client);
     }
 
-    /**
-     * @depends testIndex
-     */
+    #[Depends('testIndex')]
     public function testAssertStatusCodeFailWithMessage(): void
     {
         $path = '/';
@@ -131,7 +125,7 @@ class WebTestCaseTest extends WebTestCase
 
         try {
             $client->request('GET', $path);
-        } catch (\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $exception) {
+        } catch (NotFoundHttpException) {
             $this->markTestSkipped('Ignore this due to --prefer-lowest CI build, see https://travis-ci.org/facile-it/symfony-functional-testcase/jobs/633306679');
         }
 

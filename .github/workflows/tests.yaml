@@ -19,8 +19,6 @@ jobs:
           - '8.3'
           - '8.2'
           - '8.1'
-          - '8.0'
-          - '7.4'
         dependencies: ['highest']
         include:
           - description: 'Symfony 7.4'
@@ -32,12 +30,9 @@ jobs:
           - description: 'Symfony 5.4'
             php: '8.1'
             symfony_require: '^5.4'
-          - description: 'Symfony 4.4'
-            php: '7.4'
-            symfony_require: '^4.4'
           - description: '(prefer lowest)'
-            php: '7.4'
-            symfony_require: '^4.4'
+            php: '8.1'
+            symfony_require: '^5.4'
             dependencies: 'lowest'
             deprecations: 'disabled'
 
@@ -85,13 +80,15 @@ jobs:
             script: composer cs-check
           - description: PHPStan
             script: vendor/bin/phpstan analyze
+          - description: Rector
+            script: vendor/bin/rector process --dry-run
     steps:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
       - name: Install dependencies
         uses: "ramsey/composer-install@v4"
       - run: ${{ matrix.script }}
