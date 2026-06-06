@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## 1.5.0 [2026-06-TBD]
 * Drop support for PHP below 8.1
 * Drop support for Symfony below 5.4
+* Deprecate `\Facile\SymfonyFunctionalTestCase\WebTestCase::getDependencyInjectionContainer()` in favor of native Symfony `getContainer()`
 
 ## 1.4.0 [2024-11-05]
 * Add support for Symfony 8 (#25)

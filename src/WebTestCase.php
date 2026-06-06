@@ -77,6 +77,7 @@ abstract class WebTestCase extends BaseWebTestCase
      * Get an instance of the dependency injection container.
      * (this creates a kernel *without* parameters).
      */
+    #[\Deprecated('Prefer using native Symfony getContainer()', '1.5.0')]
     protected function getDependencyInjectionContainer(): ContainerInterface
     {
         $cacheKey = $this->environment;

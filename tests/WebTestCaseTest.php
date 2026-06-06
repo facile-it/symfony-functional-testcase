@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Facile\SymfonyFunctionalTestCase\Tests;
 
 use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Facile\SymfonyFunctionalTestCase\Tests\App\AppKernel;
 use Facile\SymfonyFunctionalTestCase\WebTestCase;
@@ -25,6 +26,14 @@ class WebTestCaseTest extends WebTestCase
     public function testGetContainer(): void
     {
         $container = $this->getContainer();
+        $this->assertTrue($container->hasParameter('kernel.environment'));
+    }
+
+    #[IgnoreDeprecations]
+    public function testGetDependencyInjectionContainer(): void
+    {
+        $container = $this->getDependencyInjectionContainer();
+
         $this->assertTrue($container->hasParameter('kernel.environment'));
     }
 
