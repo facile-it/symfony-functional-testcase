@@ -48,7 +48,7 @@ abstract class WebTestCase extends BaseWebTestCase
      *
      * @param array<string, mixed> $params
      */
-    protected function runCommand(string $name, array $params = [], bool $reuseKernel = false): CommandTester
+    protected function runCommandTester(string $name, array $params = [], bool $reuseKernel = false): CommandTester
     {
         $commandTester = $this->prepareCommandTester($name, $reuseKernel);
         $commandTester->execute(
@@ -62,9 +62,22 @@ abstract class WebTestCase extends BaseWebTestCase
     }
 
     /**
+     * @param mixed[] $arguments
+     */
+    public function __call(string $name, array $arguments): object
+    {
+        if ('runCommand' === $name) {
+            return $this->runCommandTester(...$arguments);
+        }
+
+        throw new \Exception("Method {$name} is not supported.");
+    }
+
+    /**
      * Get an instance of the dependency injection container.
      * (this creates a kernel *without* parameters).
      */
+    #[\Deprecated('Prefer using native Symfony getContainer()', '1.5.0')]
     protected function getDependencyInjectionContainer(): ContainerInterface
     {
         $cacheKey = $this->environment;
