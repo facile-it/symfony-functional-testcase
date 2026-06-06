@@ -20,14 +20,12 @@ class CommandTest extends WebTestCase
 
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test');
 
-        /** @phpstan-ignore-next-line method.impossibleType */
         $this->assertInstanceOf(CommandTester::class, $commandTester);
         $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
 
         /** @phpstan-ignore-next-line argument.type */
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test', [], true);
 
-        /** @phpstan-ignore-next-line method.impossibleType */
         $this->assertInstanceOf(CommandTester::class, $commandTester);
         $this->assertSame(0, $commandTester->getStatusCode());
         $this->assertStringContainsString('Environment: test', $commandTester->getDisplay());
@@ -71,7 +69,6 @@ class CommandTest extends WebTestCase
 
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test');
 
-        /** @phpstan-ignore-next-line method.impossibleType */
         $this->assertInstanceOf(CommandTester::class, $commandTester);
         $this->assertSame(0, $commandTester->getStatusCode());
 
@@ -90,7 +87,6 @@ class CommandTest extends WebTestCase
 
         $commandTester = $this->runCommand('facileitsymfonyfunctionaltestcase:test-status-code');
 
-        /** @phpstan-ignore-next-line method.impossibleType */
         $this->assertInstanceOf(CommandTester::class, $commandTester);
         $this->assertSame(10, $commandTester->getStatusCode());
     }
