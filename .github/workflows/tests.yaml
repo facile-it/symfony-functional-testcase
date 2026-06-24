@@ -38,7 +38,7 @@ jobs:
 
     name: PHP ${{ matrix.php }} ${{ matrix.description }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 2
       - uses: shivammathur/setup-php@v2
@@ -84,7 +84,7 @@ jobs:
             script: vendor/bin/rector process --dry-run
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
